@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/blog.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="menu.html">INTP-362: Emerging Trends</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="blogpost_1.html">Blog Post #1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="blogpost_2.html">Blog Post #2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="blogpost_3.html">Blog Post #3</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container mb-4 border-bottom border-dark">
+      <h1 class="display-3 mb-4">
+        <span class="text-danger">Python</span> Basics + <span class="text-success">Turtle</span> Sunset
+      </h1>
+      <div class="row">
+        <div class="col-4">
+          <h5 class="">Arran Woodruff</h5>
+        </div>
+        <div class="col-4 text-center">
+          <h5>2020-01-25</h5>
+        </div>
+        <div class="col-4 text-right">
+          <h5>Reading Time: Under 5 Minutes</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p>
+        Welcome to Emerging Trends: Python Blog Post #1! I'm going to demonstrate the basics of Python by demonstrating
+        control flow, loops, variables and more.
+      </p>
+
+      <h2 class="text-center" id="basics">Table of Contents</h2>
+
+      <ul class="table-of-contents">
+        <li><a href="#basics">Basics</a></li>
+        <ul>
+          <li><a href="#hello_world">Hello World</a></li>
+          <li><a href="#control_flow">Control Flow</a></li>
+          <li><a href="#fizz_buzz">Fizz Buzz</a></li>
+        </ul>
+        <li><a href="#gui">GUI</a></li>
+        <ul>
+          <li><a href="#turtle_shapes">Turtle Shapes</a></li>
+          <li><a href="#turtle_sunrise">Turtle Sunrise</a></li>
+          <li><a href="#pygame_animation">Pygame Animation</a></li>
+        </ul>
+      </ul>
+
+      <h2 class="text-center" id="basics">Basics</h2>
+
+      <p>To start off, lets get <b>Hello World</b> out of the way:</p>
+
+      <div class="bg-dark rounded" id="hello_world">
+        <div class="code-header p-3"><h5 class="text-dark">hello_world.py</h5></div>
+        <code>
+          <div class="p-3">
+            print("Hello World!") <br />
+            <h5 class="my-3">Program Output:</h5>
+            >>> Hello World!
+          </div>
+        </code>
+      </div>
+      <p class="text-center">Note: "<code>>>></code>" is used to indicate the program output.</p>
+      <p>Well, that was easy. Note the lack of semicolons. Lets try a in if statement:</p>
+
+      <div class="bg-dark rounded mb-3" id="flow_control">
+        <div class="code-header p-3"><h5 class="text-dark">flow_control.py</h5></div>
+        <code>
+          <div class="p-3">
+            if (True): <br />
+            &emsp;print("True!") <br />
+            else: <br />
+            &emsp;print("False!") <br />
+            <h5 class="my-3">Program Output:</h5>
+            >>>True!
+          </div>
+        </code>
+      </div>
+
+      <p>
+        <b
+          >No curly braces? <br />
+          No semi-colons? <br />
+          Capital "T" True? <br />
+          What about System.out???
+        </b>
+      </p>
+      <p>
+        Alright, as Java programmers, there's a lot to digest here. Most importantly is the lack of curly-braces which
+        guides so much of Java's structure. In Python, scope isn't determined by curly-braces, but by tabs. Notice how
+        the places that you'd expect to find braces contain a single colon and then all of the text after it is tabbed
+        up once? It looks completely different but most of the same concepts of scope that apply in Java apply here as
+        well. The colon indicates a new block of code and deeper scope. All of the tabbed code that proceedes is part of
+        that scope!
+        <br />
+        <br />
+        Not so crazy once it's explained right? Let's get a bit more involved, here's a weird take on the classic Fizz
+        Buzz problem:
+      </p>
+
+      <div class="bg-dark rounded mb-3" id="fizz_buzz">
+        <div class="code-header p-3"><h5 class="text-dark">fizz_buzz.py</h5></div>
+        <code>
+          <div class="p-3">
+            keywords = ["fizz", "buzz", "fizzbuzz"] <br />
+            divisors = [3, 5]<br />
+            <br />
+            for i in range(1, 16):<br />
+            &emsp;&emsp;answer = ""<br />
+            &emsp;&emsp;for divisor in divisors:<br />
+            &emsp;&emsp;&emsp;&emsp;if (i % divisor == 0):<br />
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;answer = answer + keywords[divisors.index(divisor)]<br />
+            &emsp;&emsp;if (answer == ""):<br />
+            &emsp;&emsp;&emsp;&emsp;print(i)<br />
+            &emsp;&emsp;else:<br />
+            &emsp;&emsp;&emsp;&emsp;print(answer)<br />
+            <h5 class="my-3">Program Output:</h5>
+            >>> 1<br />
+            >>> 2<br />
+            >>> fizz<br />
+            >>> 4<br />
+            >>> buzz<br />
+            >>> fizz<br />
+            >>> 7<br />
+            >>> 8<br />
+            >>> fizz<br />
+            >>> buzz<br />
+            >>> 11<br />
+            >>> fizz<br />
+            >>> 13<br />
+            >>> 14<br />
+            >>> fizzbuzz<br />
+          </div>
+        </code>
+      </div>
+
+      <p>
+        As you might start to see, the lack of curly-braces can make it seem difficult to read the code if you're not
+        used to it. This code block begins to show a bit more of Python's syntax. We are introduced to arrays, a for
+        loop, comparisons, and some built-in methods.
+      </p>
+      <p>
+        We also see that initializing variables in Python couldn't be easier, simply:
+        <code class="bg-dark p-1 rounded"> <i>variable = value</i></code> no semicolons, and no types! <br />
+        Now that we've got the basics out of the way, lets see what kind of graphics we can come up with.
+      </p>
+
+      <h2 class="text-center" id="gui">GUI</h2>
+    </div>
+  </body>
+</html>

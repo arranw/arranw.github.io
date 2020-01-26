@@ -1,0 +1,44 @@
+body {
+  background: #d1913c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffd194, #d1913c); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffd194,
+    #d1913c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  min-height: 100vh;
+
+  margin-bottom: 200px;
+}
+
+.code-header {
+  width: 100%;
+  background-color: #666;
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.code-header h5 {
+  color: #eee !important;
+  margin: 0;
+}
+
+.table-of-contents {
+  list-style: decimal;
+}
+
+.table-of-contents li {
+  margin-bottom: 0.5rem;
+}
+
+.table-of-contents a {
+  padding: 0.25rem;
+  border-radius: 5px;
+  color: #e83e8c;
+  background-color: #343a40;
+}
+
+.table-of-contents ul {
+  list-style: lower-roman;
+}
