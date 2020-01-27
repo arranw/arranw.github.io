@@ -2,15 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Python #1: Basics + Graphics</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/blog.css" />
   </head>
-  <body class="text-light">
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-      <a class="navbar-brand" href="menu.html">INTP-362: Emerging Trends: <span class="text-danger">Python</span></a>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="menu.html">INTP-362: Emerging Trends</a>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="blogpost_1.html">Blog Post #1</a>
+          <a class="nav-link active" href="blogpost_1.html">Blog Post #1</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="blogpost_2.html">Blog Post #2</a>
@@ -21,12 +22,341 @@
       </ul>
     </nav>
 
-    <div class="container">
-      <div class="border-bottom border-danger">
-        <h1 class="display-3 ">
-          <small class="text-danger">Basics</small>
-        </h1>
+    <div class="container mb-4 border-bottom border-dark">
+      <h1 class="display-3 mb-4">
+        <span class="text-danger">Python</span> Basics + <span class="text-success">Turtle</span> Sunrise
+      </h1>
+      <div class="row">
+        <div class="col-4">
+          <h5 class="">Arran Woodruff</h5>
+        </div>
+        <div class="col-4 text-center">
+          <h5>2020-01-25</h5>
+        </div>
+        <div class="col-4 text-right">
+          <h5>Reading Time: Under 5 Minutes</h5>
+        </div>
       </div>
+    </div>
+
+    <div class="container">
+      <h2 class="text-center" id="basics">Table of Contents</h2>
+
+      <ul class="table-of-contents">
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#basics">Basics</a></li>
+        <ul>
+          <li><a href="#hello_world">Hello World</a></li>
+          <li><a href="#control_flow">Control Flow</a></li>
+          <li><a href="#fizz_buzz">Fizz Buzz</a></li>
+        </ul>
+        <li><a href="#gui">GUI</a></li>
+        <ul>
+          <li><a href="#turtle_sunrise">Turtle Sunrise</a></li>
+          <li><a href="#turtle_shapes">Turtle Shapes</a></li>
+        </ul>
+      </ul>
+
+
+      <h2 class="text-center" id="basics">Intro</h2>
+
+      <div id="intro">
+        <p>
+          Welcome to Emerging Trends: Python Blog Post #1! I'm going to demonstrate the basics of Python by demonstrating
+          control flow, loops, variables and more.
+        </p>
+        
+        <p>
+          Python is highly popular, high level programming language that is heavily used in sciences and data analysis.
+          Python has incredible support from developers in the community and it's tough to find an issue that doesn't have a resource online.
+          Consistently ranked as a top 3 programming language by popularity, it seemed like an obvious choice for me to develop throughout my Emerging Trends course.
+        </p>
+      </div>
+
+      <h2 class="text-center" id="basics">Basics</h2>
+
+      <p>To start off, lets get <b>Hello World</b> out of the way:</p>
+
+      <div class="bg-dark rounded" id="hello_world">
+        <div class="code-header p-3"><h5 class="text-dark">hello_world.py</h5></div>
+        <code>
+          <div class="p-3">
+            print("Hello World!") <br />
+
+            <h5 class="text-light my-3">Program Output:</h5>
+            
+            >>> Hello World!
+          </div>
+        </code>
+      </div>
+      <p class="text-center">Note: "<code>>>></code>" is used to indicate the program output.</p>
+      <p>Well, that was easy. Note the lack of semicolons. Lets try a in if statement:</p>
+
+      <div class="bg-dark rounded mb-3" id="flow_control">
+        <div class="code-header p-3"><h5 class="text-dark">flow_control.py</h5></div>
+        <code>
+          <div class="p-3">
+            if (True): <br />
+            &emsp;print("True!") <br />
+            else: <br />
+            &emsp;print("False!") <br />
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>>True!
+          </div>
+        </code>
+      </div>
+
+      <p>
+        <b
+          >No curly braces? <br />
+          No semi-colons? <br />
+          Capital "T" True? <br />
+          What about System.out???
+        </b>
+      </p>
+      <p>
+        Alright, as Java programmers, there's a lot to digest here. Most importantly is the lack of curly-braces which
+        guides so much of Java's structure. In Python, scope isn't determined by curly-braces, but by tabs. Notice how
+        the places that you'd expect to find braces contain a single colon and then all of the text after it is tabbed
+        up once? It looks completely different but most of the same concepts of scope that apply in Java apply here as
+        well. The colon indicates a new block of code and deeper scope. All of the tabbed code that proceedes is part of
+        that scope!
+        <br />
+        <br />
+        Not so crazy once it's explained right? Let's get a bit more involved, here's a weird take on the classic Fizz
+        Buzz problem:
+      </p>
+
+      <div class="bg-dark rounded mb-3" id="fizz_buzz">
+        <div class="code-header p-3"><h5 class="text-dark">fizz_buzz.py</h5></div>
+        <code>
+          <div class="p-3">
+            keywords = ["fizz", "buzz", "fizzbuzz"] <br />
+            divisors = [3, 5]<br />
+            <br />
+            for i in range(1, 16):<br />
+            &emsp;&emsp;answer = ""<br />
+            &emsp;&emsp;for divisor in divisors:<br />
+            &emsp;&emsp;&emsp;&emsp;if (i % divisor == 0):<br />
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;answer = answer + keywords[divisors.index(divisor)]<br />
+            &emsp;&emsp;if (answer == ""):<br />
+            &emsp;&emsp;&emsp;&emsp;print(i)<br />
+            &emsp;&emsp;else:<br />
+            &emsp;&emsp;&emsp;&emsp;print(answer)<br />
+
+            <h5 class="text-light my-3">Program Output:</h5>
+            
+            >>> 1<br />
+            >>> 2<br />
+            >>> fizz<br />
+            >>> 4<br />
+            >>> buzz<br />
+            >>> fizz<br />
+            >>> 7<br />
+            >>> 8<br />
+            >>> fizz<br />
+            >>> buzz<br />
+            >>> 11<br />
+            >>> fizz<br />
+            >>> 13<br />
+            >>> 14<br />
+            >>> fizzbuzz<br />
+          </div>
+        </code>
+      </div>
+
+      <p>
+        As you might start to see, the lack of curly-braces can make it seem difficult to read the code if you're not
+        used to it. This code block begins to show a bit more of Python's syntax. We are introduced to arrays, a for
+        loop, comparisons, and some built-in methods.
+      </p>
+      <p>
+        We also see that initializing variables in Python couldn't be easier, simply:
+        <code class="bg-dark p-1 rounded"> <i>variable = value</i></code> no semicolons, and no types! <br />
+        Now that we've got the basics out of the way, lets see what kind of graphics we can come up with.
+      </p>
+
+      <h2 class="text-center" id="gui">GUI</h2>
+
+      <p>
+        Yeah, yeah. If/Else, for loop, arrays, who cares? It's just boring text on a screen right? Let's get into the
+        pretty parts of Python :)
+      </p>
+
+      <div class="bg-dark rounded mb-3" id="turtle_sunrise">
+        <div class="code-header p-3"><h5 class="text-dark">sunrise.py</h5></div>
+        <code>
+          <div class="p-3">
+            import turtle <br />
+            <br>
+            turtle.setup(500, 500) <span class="text-secondary"># set the window size</span> <br />
+            turtle.speed("fastest") <br />
+            <br>
+            turtle.shape("turtle") <br />
+            <br>
+            turtle.up() <span class="text-secondary"># initial position of the turtle</span> <br /> 
+            turtle.right(90) <br />
+            turtle.forward(500) <br />
+            turtle.left(90) <br />
+            turtle.forward(150) <br />
+            <br>
+            for i in range(0, 50): <span class="text-secondary"># creating 50 circles to give a radial gradient effect</span> <br />
+            &emsp;&emsp;rHexCode = hex(5 + (i * 4))[2:100] <span class="text-secondary"># slightly increment the red hex value on each iteration</span> <br />
+            &emsp;&emsp;if (len(rHexCode) == 1): <br />
+            &emsp;&emsp;&emsp;&emsp;rHexCode = "0" + rHexCode <br />
+            &emsp;&emsp;gHexCode = "00" <br />
+            &emsp;&emsp;bHexCode = "00" <br />
+            &emsp;&emsp;turtle.fillcolor("#%s%s%s" % (rHexCode, gHexCode, bHexCode)) <span class="text-secondary"># combine our hex codes to set the color</span> <br />
+            &emsp;&emsp;turtle.begin_fill() <span class="text-secondary"># draw the circle!</span> <br />
+            &emsp;&emsp;turtle.circle(500 - (i * 8)) <br />
+            &emsp;&emsp;turtle.end_fill() <br />
+            <br>
+            turtle.exitonclick() <br />
+            <br>
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> <br />
+            <div style="text-align: center;">
+              <video class="text-" controls>
+                <source src="../sunrise.mp4" type="video/mp4" />
+              </div>
+            </video>
+          </div>
+        </code>
+      </div>
+
+      <p>
+        Well, I think it looks like a sunrise anyway. The previous code loops 50 times, creating circles that decrease in size and increase in redness on each iteration.
+        <br><b>I had an issue on my first attempt at this where the whole screen would end up being the same color. This was because I was drawing the circles from smallest to largest.
+        Each time a larger circle was drawn, it would cover the previous smaller circle! Logically, drawing the larger ones first solved that problem immediately.</b>
+        <br>
+        Now that we're all familiar with the syntax, lets get into something a bit more fun. We all like geometry right?
+      </p>
+
+      <div class="bg-dark rounded mb-3" id="turtle_shapes">
+        <div class="code-header p-3"><h5 class="text-dark">shapes.py</h5></div>
+        <code>
+          <div class="p-3">
+            import turtle </br>
+            </br>
+            turtle.setup(500, 500) </br>
+            </br>
+            background = turtle.Turtle() </br>
+            background.speed(10) </br>
+            </br>
+            background.up() </br>
+            background.right(90) </br>
+            background.forward(300) </br>
+            background.left(90) </br>
+            </br>
+            background.fillcolor("black") </br>
+            background.begin_fill() </br>
+            background.circle(500) </br>
+            background.end_fill() </br>
+            </br>
+            pentagon = turtle.Turtle() </br>
+            pentagon.speed(10) </br>
+            </br>
+            pentagon.up() </br>
+            pentagon.forward(90) </br>
+            pentagon.down() </br>
+            </br>
+            pentagon.color("white") </br>
+            pentagon.fillcolor("pink") </br>
+            </br>
+            pentagon.begin_fill() </br>
+            for side in range(0, 5): </br>
+            &emsp;&emsp;pentagon.forward(50) </br>
+            &emsp;&emsp;pentagon.right(72) </br>
+            pentagon.end_fill() </br>
+            </br>
+            pentagon.write('Pentagon') </br>
+            </br>
+            square = turtle.Turtle() </br>
+            square.speed(10) </br>
+            </br>
+            square.up() </br>
+            square.left(90) </br>
+            square.forward(100) </br>
+            square.down() </br>
+            </br>
+            square.color("white") </br>
+            square.fillcolor("red") </br>
+            </br>
+            square.begin_fill() </br>
+            for side in range(0, 4): </br>
+            &emsp;&emsp;square.forward(100) </br>
+            &emsp;&emsp;square.left(90) </br>
+            square.end_fill() </br>
+            </br>
+            square.write("Square") </br>
+            </br>
+            star = turtle.Turtle() </br>
+            star.speed(10) </br>
+            </br>
+            star.up() </br>
+            star.left(180) </br>
+            star.forward(20) </br>
+            star.left(90) </br>
+            star.forward(100) </br>
+            star.down() </br>
+            </br>
+            angle = 100 </br>
+            </br>
+            star.color("white") </br>
+            star.fillcolor("yellow") </br>
+            </br>
+            star.begin_fill() </br>
+            for side in range(0, 5): </br>
+            &emsp;&emsp;star.forward(80) </br>
+            &emsp;&emsp;star.right(angle) </br>
+            &emsp;&emsp;star.forward(80) </br>
+            &emsp;&emsp;star.right(72 - angle) </br>
+            star.end_fill() </br>
+            </br>
+            star.up() </br>
+            star.settiltangle(0) </br>
+            star.left(90) </br>
+            star.forward(10) </br>
+            star.down() </br>
+            </br>
+            star.write("Star") </br>
+            </br>
+            # Star was guided by @John La Rooy on Stackoverflow: https://stackoverflow.com/a/26357882/4599520 </br>
+            </br>
+            turtle.exitonclick() </br>
+
+              
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> <br />
+            <div style="text-align: center;">
+              <video class="text-" controls>
+                <source src="../shapes.mp4" type="video/mp4" />
+              </div>
+            </video>
+          </div>
+        </code>
+      </div>
+
+      <p>
+        No new concepts here, just a ton of method calls. Luckily the Turtle API is pretty self explanitory so I don't even need to comment my code! Right?
+        I'm going to assume I can get away with that for now :) You didn't think geometry could be so cool did you? I think me and my friends Python and Turtle proved you wrong.
+      </p>
+      <p>
+        I know python gets a ton of attention for it's uses in data analysis and science, but I thought it would be good to start this blog series on a fun note 
+        to show some of the other things that you can do with Python.
+      </p>
+      <p>
+        That's all for now, I hope you got something from this post, see you next time. 
+        <br>
+        <br>
+        <i>- Arran Woodruff</i>
+      </p>
+
     </div>
   </body>
 </html>
