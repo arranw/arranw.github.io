@@ -5,10 +5,12 @@ n = 80
 turtle.up()  # lift the pen
 turtle.speed(11)  # turn it up to 11!
 
+# 🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢
+
 turtle.seth(310)
 for j in range(n):
     # carefully calculated (absolutely not trial and error)
-    turtle.goto(-1000 + (20 * j), 200 + (20 * j))
+    turtle.goto(-600 + (20 * j), 100 + (20 * j))
     for i in range(n):
         x = i + (n * j)
         if x % 3 == 0 and x % 5 == 0:
@@ -24,5 +26,6 @@ for j in range(n):
             turtle.write(x, False)
             turtle.forward(40)
 
+# 🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢🐢
 
 turtle.exitonclick()

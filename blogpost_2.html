@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Python #2: WIP</title>
+    <title>Python #2: Bulk File Renaming</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/blog.css" />
   </head>
@@ -24,23 +24,273 @@
 
     <div class="container mb-4 border-bottom border-dark">
       <h1 class="display-3 mb-4">
-        <span class="text-danger">Python #2: WIP</span>
+        <span class="text-danger">Python #2: Bulk File Renaming</span>
       </h1>
       <div class="row">
         <div class="col-4">
           <h5 class="">Arran Woodruff</h5>
         </div>
         <div class="col-4 text-center">
-          <h5>WIP</h5>
+          <h5>2020-02-23</h5>
         </div>
         <div class="col-4 text-right">
-          <h5>Reading Time: Under x Minutes</h5>
+          <h5>Reading Time: Under 15 Minutes</h5>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <h5 class="text-danger display-4 text-center">Work in Progress.</h5>
+      <h2 class="text-center" id="basics">Table of Contents</h2>
+
+      <ul class="table-of-contents">
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <ul>
+          <li><a href="#os_module">os</a></li>
+          <li><a href="#datetime_module">datetime</a></li>
+        </ul>
+        <li><a href="#problem">Problem: Unorganized Picture Folder</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+
+      <h2 id="intro" class="text-center" id="basics">Intro</h2>
+
+      <p>
+        Thanks for coming back to <b>Emerging Trends: Python.</b> This edition will utilize the <b>os</b> and
+        <b>datetime</b> python modules to help us reorganize a messy, unorganized pictures folder into an easy-to-read,
+        nicely formatted list of files.
+      </p>
+
+      <h2 id="modules" class="text-center">Modules</h2>
+
+      <h4 id="datetime_module">datetime</h4>
+      <p>
+        Python doesn't have a native Date object like many other languages, this is where the <b>datetime</b> module
+        comes in. This module gives us many of the same features and functions that you'd expect from the Date objects
+        from languages like Java and Javascript. The key methods being used in this blog post are <b>strptime</b> and
+        <b>strftime</b>. They are short for "String Parse Time" and "String Format Time". <b>strptime</b> can be used to
+        parse text and convert it to a datetime object, and <b>strftime</b> can be used to convert a datetime object to
+        whatever formatted string you like.
+      </p>
+      <h4 id="os_module">os</h4>
+      <p>
+        The <b>os</b> module has a ton of features that can be used to assist with many operating system related tasks.
+        Namely, it can be used to view and modify the file tree, accept and parse command line argumens, and read and
+        modify environment variables.for this example, we will be focusing on its file structure functionality.
+        Conveniently, <b>os</b> has a <b>listdir</b> method which is passed a directory path and returns a list of all
+        the files within. This, used along with the self-explanatory <b>rename</b> method, will provide all of the tools
+        we need to solve our problem today.
+      </p>
+
+      <h2 id="problem" class="text-center" id="basics">The Problem</h2>
+
+      <p></p>
+
+      <p>
+        Everyone's been faced with the situation where you've gone on an awesome trip to a beautiful country, snapped
+        hundreds of pictures, and then been faced with something like this when you get back home:
+      </p>
+
+      <div class="w-100 mb-3">
+        <div class="card w-75 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/initial_file_names.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">Unreadable, unorganize picture folder</div>
+        </div>
+      </div>
+
+      <p>
+        All of your dreams of posting an awesome photo reel to instagram come crashing down as you realize it'll take
+        you hours to sort through each file. What we need is a program that will loop through each file, parse its
+        filename, and rename it to something sensible.
+      </p>
+
+      <h4>Criteria</h4>
+      <ul>
+        <li><h5>Named:</h5></li>
+        <p>
+          We want each file to have some sort of tag so that if we mix files from one trip with files from another, they
+          will be obviously discernible
+        </p>
+        <li><h5>Numbered:</h5></li>
+        <p>
+          When you're flipping through your photo viewer looking for the best photos, you quickly lose reference to
+          where you were in the folder. When you find a good photo, you've now got to scroll back through the list to
+          find that file and do what you want to it.
+        </p>
+        <div class="w-100 text-center">
+          <img class="w-75 rounded" src="./pictures/file_number.jpg" alt="" />
+        </div>
+        <li><h5>Formatted</h5></li>
+        <p>The date formats should be much easier to read.</p>
+      </ul>
+
+      <h2 class="text-center" id="solution">The Solution</h2>
+
+      <p>
+        Lets start by simply listing the contents of the directory. We'll use the <b>os</b> module's
+        <b>listdir</b> function.
+      </p>
+
+      <div class="bg-dark rounded" id="os">
+        <div class="code-header p-3"><h5 class="text-dark">listdir()</h5></div>
+        <code>
+          <div class="p-3">
+            print(os.listdir("c:/pictures"))<br />
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> ['20190517_161505.jpg', '20190518_082109.jpg', '20190518_091500.jpg', '20190519_081332.jpg',
+            '20190519_125740.jpg', '20190525_101550.jpg']
+          </div>
+        </code>
+      </div>
+
+      <p>
+        Awesome, a list of ugly file names. <br />
+        Lets store it in a variable, make a loop for it, and initialize a counter.
+      </p>
+
+      <div class="bg-dark rounded">
+        <div class="code-header p-3"><h5 class="text-dark">listdir() cont...</h5></div>
+        <code>
+          <div class="p-3">
+            i = 1<br />
+            files = os.listdir("c:/pictures")<br />
+            for file in files: <br />
+            &emsp; print(file) <br />
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> 20190517_161505.jpg <br />
+            >>> 20190518_082109.jpg <br />
+            >>> 20190518_091500.jpg <br />
+            >>> 20190519_081332.jpg <br />
+            >>> 20190519_125740.jpg <br />
+            >>> 20190525_101550.jpg <br />
+          </div>
+        </code>
+      </div>
+      <p>That should be much easier to work with, now lets get to work on reformatting those dates.</p>
+
+      <div class="bg-dark rounded">
+        <div class="code-header p-3"><h5 class="text-dark">datetime</h5></div>
+        <code>
+          <div class="p-3">
+            i = 1<br />
+            files = os.listdir("c:/pictures")<br />
+            for file in files: <br />
+            <span class="text-success">
+              &emsp; + fileDate = date.strptime(file[:-4], '%Y%m%d_%H%M%S') <br />
+              &emsp; + formattedDate = date.strftime(fileDate, "%d_%b_%Y_%H%M").upper() <br />
+              &emsp; + print(formattedDate) <br />
+            </span>
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> 17_MAY_2019_1615 <br />
+            >>> 18_MAY_2019_0821 <br />
+            >>> 18_MAY_2019_0915 <br />
+            >>> 19_MAY_2019_0813 <br />
+            >>> 19_MAY_2019_1257 <br />
+            >>> 25_MAY_2019_1015 <br />
+          </div>
+        </code>
+      </div>
+
+      <p>
+        Looking better already! We've used the <code class="bg-dark rounded p-1">strptime</code> and
+        <code class="bg-dark rounded p-1">strftime</code> methods very successfully here. <br />
+        Let's add a label and utilize our counter now:
+      </p>
+
+      <div class="bg-dark rounded">
+        <div class="code-header p-3"><h5 class="text-dark">final formatting</h5></div>
+        <code>
+          <div class="p-3">
+            i = 1<br />
+            files = os.listdir("c:/pictures")<br />
+            for file in files: <br />
+            &emsp; fileDate = date.strptime(file[:-4], '%Y%m%d_%H%M%S') <br />
+            &emsp; formattedDate = date.strftime(fileDate, "%d_%b_%Y_%H%M").upper() <br />
+            <span class="text-success">
+              &emsp; + fileType = file[-4:] <br />
+              &emsp; + fileNo = str(i).zfill(4) <br />
+              &emsp; + newFileName = "Aus_{}_{}{}" <br />
+              &emsp; + print(newFileName.format(fileNo, formattedDate, fileType)) <br />
+              &emsp; + fileDate = date.strptime(file[:-4], '%Y%m%d_%H%M%S') <br />
+              &emsp; + formattedDate = date.strftime(fileDate, "%d_%b_%Y_%H%M").upper() <br />
+              &emsp; + print(formattedDate) <br />
+            </span>
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            >>> Aus_0001_17_MAY_2019_1615.jpg <br />
+            >>> Aus_0001_18_MAY_2019_0821.jpg <br />
+            >>> Aus_0001_18_MAY_2019_0915.jpg <br />
+            >>> Aus_0001_19_MAY_2019_0813.jpg <br />
+            >>> Aus_0001_19_MAY_2019_1257.jpg <br />
+            >>> Aus_0001_25_MAY_2019_1015.jpg <br />
+          </div>
+        </code>
+      </div>
+      <p>
+        Look at that! In just a few short lines, we've already fulfilled all of our requirements. We've got a tag "Aus",
+        a counter for easy reference, and a formatted date that is much easier to read. All that's left to do now is
+        properly rename the files.
+      </p>
+
+      <div class="w-100 mb-3">
+        <div class="card w-25 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/bad_names.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">Sample of bad file names</div>
+        </div>
+      </div>
+
+      <div class="bg-dark rounded mb-3">
+        <div class="code-header p-3"><h5 class="text-dark">bulk_rename.py</h5></div>
+        <code>
+          <div class="p-3">
+            import os <br />
+            import datetime <br />
+            date = datetime.datetime <br />
+            i = 1 <br />
+            files = os.listdir("c:/pictures") <br />
+            for file in files: &emsp;fileType = file[-4:] <br />
+            &emsp;fileDate = date.strptime(file[:-4], '%Y%m%d_%H%M%S') <br />
+            &emsp;formattedDate = date.strftime(fileDate, "%d_%b_%Y_%H%M").upper() <br />
+            &emsp;newFileName = "Aus_{}_{}{}" <br />
+            &emsp;fileNo = str(i).zfill(4) <br />
+            &emsp;formattedFilename = newFileName.format(fileNo, formattedDate, fileType) <br />
+            &emsp;i = i + 1 <br />
+            &emsp;original = 'c:/pictures/' + file <br />
+            &emsp;new = 'c:/pictures/' + formattedFilename <br />
+            &emsp;os.rename(original, new) <br />
+          </div>
+        </code>
+      </div>
+
+      <div class="w-100 mb-3">
+        <div class="card w-25 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/good_names.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">File names fixed!</div>
+        </div>
+      </div>
+
+      <h2 class="text-center" id="conclusion">The Conclusion</h2>
+      <p>
+        As you can see, Python's module system provided us with awesome, easy to use tools that allowed us to automate a
+        normally time-consuming task. This program could be easily extended by allowing the user to specify the label
+        and the directory to rename. For now, as a developer, this code is easily modifiable and extensible to bulk
+        rename all of my picture folders.
+        <br />
+        I hope this demonstration helped you understand the <b>datetime</b> and <b>os</b> python modules!
+      </p>
     </div>
   </body>
 </html>
