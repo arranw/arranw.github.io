@@ -42,3 +42,10 @@ body {
 .table-of-contents ul {
   list-style: lower-alpha;
 }
+
+.grey-gradient {
+  background: -webkit-linear-gradient(180deg, #aaa, #333, #aaa, #333, #aaa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

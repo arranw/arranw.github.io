@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Python #2: WIP</title>
+    <title>Python #2: Image Greyscale Conversion</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/blog.css" />
   </head>
@@ -23,24 +23,201 @@
     </nav>
 
     <div class="container mb-4 border-bottom border-dark">
-      <h1 class="display-3 mb-4">
-        <span class="text-danger">Python #3: WIP</span>
+      <h1 class="display-4 mb-4">
+        <span class="text-danger">Python #3: <span class="grey-gradient">Image Greyscale Conversion</span></span>
       </h1>
       <div class="row">
         <div class="col-4">
           <h5 class="">Arran Woodruff</h5>
         </div>
         <div class="col-4 text-center">
-          <h5>WIP</h5>
+          <h5>2020-03-29</h5>
         </div>
         <div class="col-4 text-right">
-          <h5>Reading Time: Under x Minutes</h5>
+          <h5>Reading Time: Under 10 Minutes</h5>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <h5 class="text-danger display-4 text-center">Work in Progress.</h5>
+      <h2 class="text-center" id="basics">Table of Contents</h2>
+
+      <ul class="table-of-contents">
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <ul>
+          <li><a href="#turtle">Turtle</a></li>
+          <li><a href="#tkinter">Tkinter</a></li>
+        </ul>
+        <li><a href="#problem">Problem: Image With Too Much Color</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+
+      <h2 id="intro" class="text-center" id="basics">Intro</h2>
+
+      <p>
+        Welcome back to the Emerging Trends: Python series written and produced by Arran Woodruff! As usual, thanks for
+        coming back again. As usual I've got some really cool stuff to show you. Today we're going to look at a simple
+        image filter for gifs. By the end of this post we're going to have everything in place to convert an existing
+        .gif image in a black and white version of itself using pixel rgb averaging for our filter.
+      </p>
+      <div class="w-100 mb-3">
+        <div class="card w-75 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/bw_filter.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">Color image + it's grescale converted twin</div>
+        </div>
+      </div>
+      <p>
+        Addtionally, we'll be able to write this greyscale image to file in an interesting format where we print out the
+        sequential greyscale pixel values as well as some basic metadata in order to reconstruct the image again. In the
+        next section we'll go over a brief introduction to the required python modules for this application.
+      </p>
+      <div class="w-100 mb-3">
+        <div class="card w-50 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/data_image.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">Pixel data + the image it represents</div>
+        </div>
+      </div>
+
+      <h2 id="modules" class="text-center">Modules</h2>
+
+      <h4 id="turtle">Turtle</h4>
+      <p>
+        The first module, which we're already familiar with, is Turtle. Turtle is a graphics library that allows you to
+        control a 'Turtle'. This turtle leaves behind a line which can be used to draw simple shapes and has the ability
+        to fill these shapes also. This module is primarily used to draw rudimentary shapes such as circles, squares,
+        and stars but we're going to take it a few steps further to draw a high resolution image.
+        <br />
+        Here's a quick refresher of drawing a square:
+      </p>
+      <div class="bg-dark rounded" id="os">
+        <div class="code-header p-3"><h5 class="text-dark">turtle square example</h5></div>
+        <code>
+          <div class="p-3">
+            square.forward(100) <br />
+            square.left(90) <br />
+            square.forward(100) <br />
+            square.left(90) <br />
+            square.write("Square") <br />
+
+            <h5 class="text-light my-3">Program Output:</h5>
+
+            <div class="w-100 mb-3">
+              <div class="card w-25 m-auto bg-dark text-light">
+                <div class="card-body p-1">
+                  <img class="w-100 rounded" src="./pictures/square.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </code>
+      </div>
+      <h4 id="tkinter">Tkinter</h4>
+      <p>
+        Tkinter is a module that provided some essential methods for gathering image data. It made what could be
+        potentially very complex code into a few simple method calls. In order to read image data programatically you'd
+        likely have to read the binary data, do conversions to data you can work with, and then reverse engineer the
+        image encoding algorithm in order to get simple pixel data. Tkinter exposes some great methos such as
+        <code class="bg-dark p-1 rounded"> img.get(x, y)</code> this method returns a tuple which contains the three RGB
+        components of the pixel.
+      </p>
+
+      <h4 id="problem">Problem</h4>
+      <p>
+        Not everyone likes so much color in life, sometimes pictures are too much and cause sensory overlaod in more
+        sensitive people. Our goal is to remove all that pesky color and life from the image until all we're left with
+        is a plain boring easy-to-look at greyscale picture.
+      </p>
+
+      <h4 id="solution">Solution</h4>
+      <p>
+        Our solution comes in two parts, an encoder which reads each pixel from our original picture and converts each
+        one to a greyscale value and writes it to a file.
+      </p>
+      <div class="bg-dark rounded" id="os">
+        <div class="code-header p-3"><h5 class="text-dark">write filtered pixels to file</h5></div>
+        <code>
+          <div class="p-3">
+            for i in range(height): <br />
+            &emsp;&emsp;for j in range(width): <br />
+            <span class="text-success">&emsp;&emsp;&emsp;&emsp;### 2. get pixel ###</span><br />
+            &emsp;&emsp;&emsp;&emsp;pixel = img.get(j, i) <br />
+            <span class="text-success">&emsp;&emsp;&emsp;&emsp;### 3. convert to greyscale ###</span> <br />
+            &emsp;&emsp;&emsp;&emsp;bw_pixel = int((pixel[0] + pixel[1] + pixel[2]) / 3) <br />
+            <span class="text-success">&emsp;&emsp;&emsp;&emsp;### 4. write the pixel ###</span><br />
+            &emsp;&emsp;&emsp;&emsp;file.write(str(bw_pixel) + "\n") <br />
+          </div>
+        </code>
+      </div>
+
+      <p>
+        This code will result in a file being created with all of the greyscale pixel data being written to a file as
+        seen before. <br />
+        The next task is to read this pixel data and draw it on the screen, this is accomplished with the following
+        code:
+      </p>
+
+      <div class="bg-dark rounded" id="os">
+        <div class="code-header p-3"><h5 class="text-dark">read pixel data and draw to screen</h5></div>
+        <code>
+          <div class="p-3">
+            while(currentLine != "END"): <br />
+            <span class="text-success">&emsp;&emsp;### 4. read line and get pixel data ### <br /></span>
+            &emsp;&emsp;greyscalePixel = int(currentLine) <br />
+            &emsp;&emsp;turtle.color((greyscalePixel, greyscalePixel, greyscalePixel)) <br />
+            <span class="text-success">&emsp;&emsp;### 5. draw the pixel ### <br /></span>
+            &emsp;&emsp;turtle.forward(1) <br />
+            &emsp;&emsp;lineCounter += 1 <br />
+
+            <span class="text-success"
+              >&emsp;&emsp;### 6. check if we're off the screen and reset the cursor if we are (typewriter style)
+              ###</span
+            >
+            <br />
+            &emsp;&emsp;if (lineCounter >= width): <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.up() <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.right(90) <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.forward(1) <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.right(90) <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.forward(width) <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.right(180) <br />
+            &emsp;&emsp;&emsp;&emsp;turtle.down() <br />
+            &emsp;&emsp;&emsp;&emsp;lineCounter = 0 <br />
+            <span class="text-success">&emsp;&emsp;### 7. read the next line ### <br /></span>
+            &emsp;&emsp;currentLine = input() <br />
+          </div>
+        </code>
+      </div>
+
+      <p>
+        Combining these two sections together we are able to, pixel by pixel, recreate the original image in full
+        greyscale by using pixel averaging.
+      </p>
+
+      <div class="w-100 mb-3">
+        <div class="card w-50 m-auto bg-dark text-light">
+          <div class="card-body p-1">
+            <img class="w-100 rounded" src="./pictures/data_image.jpg" alt="" />
+          </div>
+          <div class="text-center card-footer">Pixel data + the image it represents</div>
+        </div>
+      </div>
+
+      <p>
+        The main idea behing this example is showing how easy it can be to get up and running with potentially very
+        complex problems and implement quick solutions. Python is amazing because it allows you to focus on the problem
+        solving aspect of programming and doesn't force you to spend time learning and implementing a ton of type safety
+        and structure like many other languages. Often times you can simply import a libary to interpret a strange data
+        format and work with it very quickly and easily. <br />
+        Thanks so much for spending the time reading my blog posts and I hope you picked up something useful! <br />
+        ps: Thanks so much for the instruction Khosro, you were by far one of my favourite teachers at SAIT and I hope
+        you and your family stay healthy and safe.
+      </p>
     </div>
   </body>
 </html>
